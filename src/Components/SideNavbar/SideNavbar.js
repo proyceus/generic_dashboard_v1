@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SideNavbarTab from './SideNavbarTab';
 
 
 const SideNavBar = () => {
+
   const navigationTabs = [
     {
       name: 'Home',
