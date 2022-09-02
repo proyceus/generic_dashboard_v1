@@ -8,7 +8,7 @@ import { Item } from '@syncfusion/ej2/splitbuttons';
 import { useStateContext } from '../contexts/ContextProvider';
 
 const Sidebar = () => {
-  const { activeMenu, setActiveMenu, screenSize } = useStateContext();
+  const { activeMenu, setActiveMenu, screenSize, currentColor } = useStateContext();
   const handleCloseSideBar = () => {
     if (activeMenu && screenSize <= 900) {
       setActiveMenu(false);
@@ -25,7 +25,12 @@ const Sidebar = () => {
           <SiShopware /><span>Shoppy</span>
         </Link>
         <TooltipComponent content="Menu" position="BottomCenter">
-          <button type="button" onClick={() => {setActiveMenu((prevState) => !prevState)}} className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden">
+          <button
+            type="button" 
+            onClick={() => {setActiveMenu((prevState) => !prevState)}} 
+            className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block md:hidden"
+            style={{color: currentColor}}
+          >
             <MdOutlineCancel />
           </button>
         </TooltipComponent>
@@ -37,7 +42,15 @@ const Sidebar = () => {
               {item.title}
             </p>
             {item.links.map((link) => (
-              <NavLink to={`/${link.name}`} key={link.name} onClick={handleCloseSideBar} className={({isActive}) => isActive ? activeLink : normalLink}>
+              <NavLink 
+                to={`/${link.name}`} 
+                key={link.name} 
+                onClick={handleCloseSideBar} 
+                style={({ isActive }) => ({
+                  backgroundColor: isActive ? currentColor : ' ',
+                })}
+                className={({isActive}) => isActive ? activeLink : normalLink}
+              >
                 {link.icon}
                 <span className="capitalize">
                   {link.name}
